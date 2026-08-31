@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Farlene Tattoo — Tatuando peles, escutando pessoas</title>
+<meta name="description" content="Farlene | Tatuadora em Cláudio, MG. Fine line, blackwork, realismo e old school. Agende sua tattoo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=UnifrakturMaguntia&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg-black:#0F0F14;
+  --bg-charcoal:#16161c;
+  --bg-charcoal-2:#1e1e24;
+  --blood:#aa0000;
+  --blood-bright:#cc0000;
+  --gold:#aa0000;
+  --gold-bright:#cc0000;
+  --bone:#f1f1f1;
+  --bone-dim:#c0c0c0;
+  --muted:#888888;
+  --line:rgba(255,255,255,0.15);
+  --font-blackletter:'UnifrakturMaguntia', cursive;
+  --font-eyebrow:'Nunito', sans-serif;
+  --font-body:'Nunito', sans-serif;
+  --font-ui:'Nunito Sans', sans-serif;
+  --font-script:'Nunito', sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background: var(--bg-black);
+  color: var(--bone);
+  font-family:var(--font-body);
+  font-size:18px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+::selection{background:var(--blood);color:var(--bone);}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+input,textarea{font-family:var(--font-ui);cursor:auto;}
+img,svg{display:block;max-width:100%;}
+.container{max-width:1180px;margin:0 auto;padding:0 32px;}
+.eyebrow{
+  font-family:var(--font-eyebrow);
+  font-size:12.5px;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+h1,h2,h3{font-weight:500;color:var(--bone);}
+.script{font-family:var(--font-script);color:var(--gold-bright);font-weight:400;}
+/* ============ MODERN BUTTON CSS ============ */
+.button, .nav-cta {
+  display: inline-flex; align-items: center; justify-content: center; font-family: inherit;
+  color: #f1f1f1; font-weight: 600; background: #313131; border: 1px solid #414141;
+  padding: 12px 24px; font-size: inherit; gap: 8px; cursor: pointer; border-radius: 6px;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.button:hover, .nav-cta:hover { background-color: var(--gold-bright); border-color: var(--gold-bright); color: #fff; box-shadow: 0 0 15px rgba(255,0,0,0.4); }
+.button:active, .nav-cta:active { scale: 0.95; }
+
+.nav-button { font-size: 13px; padding: 10px 20px; display: none; align-self: center; line-height: 1; margin: 0; }
+@media(min-width: 881px) { .nav-button { display: inline-flex; } }
+.submit-button { width: 100%; margin-top: 15px; }
+
+#loader {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 99999;
+  background: #0f0f14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease;
+}
+#loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#load {
+  position: relative;
+  width: 300px;
+  height: 50px;
+}
+
+#load div {
+  position: absolute;
+  top: 0;
+  width: 30px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: #c90000;
+  opacity: 0;
+  animation: loaderMove 2s linear infinite;
+}
+
+#load div:nth-child(2) { animation-delay: 0.2s; }
+#load div:nth-child(3) { animation-delay: 0.4s; }
+#load div:nth-child(4) { animation-delay: 0.6s; }
+#load div:nth-child(5) { animation-delay: 0.8s; }
+#load div:nth-child(6) { animation-delay: 1.0s; }
+#load div:nth-child(7) { animation-delay: 1.2s; }
+
+@keyframes loaderMove {
+  0%   { left: 0;    opacity: 0; transform: rotate(180deg); }
+  35%  { left: 40%;  opacity: 1; transform: rotate(0deg); }
+  65%  { left: 60%;  opacity: 1; transform: rotate(0deg); }
+  100% { left: 100%; opacity: 0; transform: rotate(-180deg); }
+}
+
+
+
+/* ============ SCROLL PROGRESS ============ */
+#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--blood),var(--gold));z-index:9997;width:0%;}
+
+/* ============ NAV ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 40px;
+  transition:background .4s var(--ease), padding .4s var(--ease), border-color .4s var(--ease);
+  border-bottom:1px solid transparent;
+}
+header.scrolled{background:rgba(15,15,20,.95);backdrop-filter:blur(10px);padding:14px 40px;border-color:var(--line);}
+header:not(.scrolled) .logo { color: #fff; mix-blend-mode: difference; }
+.logo{font-family:var(--font-blackletter);font-size:30px;color:var(--bone);letter-spacing:.02em;}
+.logo span{color:var(--blood-bright);}
+nav ul{list-style:none;display:flex;gap:34px;}
+nav a{
+  font-family:var(--font-ui);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  position:relative;padding-bottom:4px;color:var(--bone-dim);transition:color .3s;
+}
+header:not(.scrolled) nav a {
+  color: #fff;
+  mix-blend-mode: difference;
+  font-weight: 700;
+}
+nav a::after{
+  content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .35s var(--ease);
+}
+nav a:hover{color:var(--gold-bright);}
+nav a:hover::after{width:100%;}
+.nav-cta{
+  font-family:var(--font-ui);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--gold);color:var(--gold-bright);padding:9px 20px;border-radius:2px;
+  transition:all .35s var(--ease);
+}
+.nav-cta:hover{background:var(--gold);color:var(--bg-black);box-shadow:0 0 22px rgba(201,161,92,.45);}
+.burger{display:none;flex-direction:column;gap:5px;z-index:600;}
+.burger span{width:26px;height:1.5px;background:var(--bone);}
+header:not(.scrolled) .burger span { background: #fff; mix-blend-mode: difference; }
+@media(max-width:880px){
+  nav{position:fixed;inset:0;background:var(--bg-black);flex-direction:column;align-items:center;justify-content:center;gap:30px;transform:translateY(-100%);transition:transform .5s var(--ease);}
+  nav.open{transform:translateY(0);}
+  nav ul{flex-direction:column;text-align:center;gap:26px;}
+  nav ul a{font-size:16px;}
+  .nav-cta{display:none;}
+  .burger{display:flex;}
+}
+
+/* ============ SECTIONS BASE ============ */
+section{position:relative;padding:150px 0;overflow:hidden;}
+.reveal{opacity:0;transform:translateY(46px) rotate(.3deg);transition:opacity 1s var(--ease), transform 1s var(--ease);}
+.reveal.in{opacity:1;transform:translateY(0) rotate(0);}
+.reveal-delay-1.in{transition-delay:.12s;}
+.reveal-delay-2.in{transition-delay:.24s;}
+.reveal-delay-3.in{transition-delay:.36s;}
+.section-head{text-align:center;margin-bottom:70px;}
+.section-head .eyebrow{display:block;margin-bottom:14px;}
+.section-head h2{font-size:clamp(34px,5vw,56px);}
+.divider{width:100%;display:flex;justify-content:center;margin:10px 0 0;opacity:.55;}
+.divider svg{width:220px;height:34px;stroke:var(--gold);}
+
+/* ============ HERO ============ */
+#hero{
+  background:transparent;
+}
+/* Split Section Classes (Alternating Layout) */
+.split-section {
+  display: flex; flex-direction: row; align-items: stretch; padding: 0; position: relative; overflow: hidden;
+  background-color: transparent;
+}
+.split-section.reversed { justify-content: flex-start; }
+.split-section:not(.reversed) { justify-content: flex-end; }
+
+/* Frame wraps the glow + the cutout photo so the glow can bleed beyond
+   the photo's own box without disturbing layout/positioning rules below. */
+.photo-frame { position: absolute; top: 0; bottom: 0; z-index: 5; overflow: visible; pointer-events: none; }
+.photo-frame.left { left: 0; width: 55%; }
+.photo-frame.right { right: 0; width: 55%; }
+
+/* Ambient glow: a heavily blurred, darkened copy of the same photo sitting
+   behind it. This is what removes the "pasted sticker on flat black" look —
+   the subject's own colors bleed softly into the background instead of
+   terminating in a hard cutout edge. */
+.photo-glow {
+  display: none;
+}
+
+.split-photo-left, .split-photo-right {
+  position: absolute; inset: 0; z-index: 2;
+  background-size: cover; background-position: center;
+  /* Unifies color/contrast across photos shot in different light, and the
+     drop-shadow follows the actual cutout silhouette (not the box), which
+     grounds the subject instead of letting it float flat on the backdrop. */
+  filter: saturate(1.04) contrast(1.05) brightness(.98)
+          drop-shadow(0 28px 46px rgba(0,0,0,.55))
+          drop-shadow(0 4px 14px rgba(0,0,0,.35));
+}
+.split-photo-left {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.split-photo-right {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.split-content-right, .split-content-left {
+  position: relative; width: 45%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2;
+  background-color: transparent;
+}
+
+@media(max-width: 900px) {
+  .split-section { flex-direction: column; justify-content: flex-start !important; }
+  .photo-frame.left, .photo-frame.right {
+    position: relative; width: 100%; height: 55vh; right: auto; left: auto;
+  }
+  .split-photo-left, .split-photo-right {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .split-content-right, .split-content-left { width: 100%; min-height: 50vh; padding: 40px 20px; }
+}
+.hero-inner{position:relative;z-index:4; text-align: center; display: flex; flex-direction: column; align-items: center;}
+.bg-parallax{position:absolute;inset:0;z-index:10;pointer-events:none; display: none !important;}
+.bg-tattoo{
+  position:absolute;
+  z-index:10;
+  pointer-events:none;
+  opacity:0.35;
+  object-fit:cover;
+  mix-blend-mode:screen;
+  filter:grayscale(100%) invert(1) contrast(1.6) brightness(1.1);
+  scale: 1.6;
+  -webkit-mask-image:radial-gradient(ellipse at center, black 25%, transparent 65%);
+  mask-image:radial-gradient(ellipse at center, black 25%, transparent 65%);
+}
+.corpse-bride-container {
+  overflow: hidden;
+}
+.corpse-bride-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.pupils-wrapper {
+  position: absolute;
+  z-index: 12;
+  pointer-events: none;
+  scale: 1.6;
+}
+.pupil {
+  position: absolute;
+  background: #333;
+  border-radius: 50%;
+  z-index: 5;
+}
+.left-pupil { left: 45%; top: 35%; width: 1.5%; height: 1.5%; }
+.right-pupil { left: 55%; top: 35%; width: 1.5%; height: 1.5%; }
+#bg-tattoo-1{left:-4%;top:10%;width:clamp(200px, 22vw, 320px);transform:rotate(-6deg);}
+#bg-tattoo-2{right:-4%;bottom:5%;width:clamp(220px, 25vw, 360px);transform:rotate(4deg);}
+#bg-tattoo-3{left:55%;top:8%;width:clamp(160px, 18vw, 260px);transform:rotate(12deg);opacity:.08;}
+#bg-tattoo-4{right:65%;bottom:15%;width:clamp(180px, 20vw, 280px);transform:rotate(-8deg);opacity:.1;}
+.hero-eyebrow{font-family:var(--font-ui);font-size:13px;letter-spacing:.5em;text-transform:uppercase;color:var(--muted);margin-bottom:22px;}
+.hero-title{
+  font-family:var(--font-blackletter);
+  font-size:clamp(72px,15vw,180px);
+  color:var(--bone);
+  line-height:.95;
+  text-shadow:0 0 60px rgba(124,15,15,.35);
+  letter-spacing:.01em;
+}
+.hero-tagline{font-family:var(--font-script);font-size:clamp(26px,4vw,40px);color:var(--gold-bright);margin-top:6px;}
+.hero-sub{max-width:520px;margin:26px auto 40px;color:var(--bone-dim);font-size:20px;font-style:italic;}
+.hero-loc{font-family:var(--font-ui);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:34px;display:flex;align-items:center;justify-content:center;gap:8px;}
+
+.btn-primary{
+  position:relative;display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--font-ui);font-size:14px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--bg-black);background:linear-gradient(120deg,var(--gold),var(--gold-bright));
+  padding:18px 40px;border-radius:2px;overflow:hidden;isolation:isolate;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+  box-shadow:0 0 0 rgba(178,24,24,0);
+}
+.btn-primary::before{
+  content:'';position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(120deg,var(--blood-bright),var(--blood));
+  transform:translateX(-102%);transition:transform .45s var(--ease);
+}
+.btn-primary:hover{color:var(--bone);transform:translateY(-3px);box-shadow:0 14px 34px rgba(178,24,24,.35);}
+.btn-primary:hover::before{transform:translateX(0);}
+.btn-primary .drip{position:absolute;bottom:-2px;left:14%;width:3px;height:0;background:var(--bg-black);opacity:.5;transition:height .5s var(--ease) .05s;}
+.btn-primary:hover .drip{height:14px;}
+
+.scroll-cue{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:4;}
+.scroll-cue .line{width:1px;height:46px;background:linear-gradient(var(--gold),transparent);animation:scrollcue 2.2s ease-in-out infinite;}
+@keyframes scrollcue{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+.scroll-cue span{font-family:var(--font-ui);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+
+/* ============ SOBRE ============ */
+#sobre { background: transparent; padding: 100px 0; text-align: center; }
+.sobre-inner { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+.sobre-portrait {
+  width: 240px; height: 240px; margin: 40px auto;
+  border-radius: 50%; padding: 8px;
+  border: 1px dashed var(--gold-bright);
+  position: relative;
+}
+.sobre-portrait-img {
+  width: 100%; height: 100%; border-radius: 50%;
+  background: #111; overflow: hidden;
+}
+.sobre-portrait-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(100%); transition: filter 0.5s;
+}
+.sobre-portrait:hover img { filter: grayscale(0%); }
+.sobre-text p {
+  color: var(--bone-dim); font-size: 18px; line-height: 1.6; margin-bottom: 24px;
+}
+.sobre-process {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+  margin-top: 60px; padding-top: 50px; border-top: 1px solid var(--line);
+}
+.process-step h4 { font-family: var(--font-eyebrow); color: #fff; font-size: 17px; margin-bottom: 10px; }
+.process-step p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.5; }
+
+@media(max-width: 880px) {
+  .sobre-process { grid-template-columns: 1fr; gap: 40px; }
+  .sobre-portrait { width: 200px; height: 200px; }
+}
+
+/* ============ PORTFOLIO ============ */
+#portfolio{background:transparent;padding:80px 0;}
+#portfolio .section-head{text-align:center;margin-bottom:50px;}
+/* ============ PORTFOLIO ============ */
+#portfolio{background:transparent;padding:80px 0;}
+#portfolio .section-head{text-align:center;margin-bottom:50px;}
+
+#portfolio {
+  --hex-w: 180px;
+  --hex-h: 208px;
+  --hex-gap: 6px;
+  --hex-overlap: -48px;
+}
+@media(max-width: 880px) {
+  #portfolio {
+    --hex-w: 130px;
+    --hex-h: 150px;
+    --hex-overlap: -34px;
+  }
+}
+@media(max-width: 520px) {
+  #portfolio {
+    --hex-w: 80px;
+    --hex-h: 92px;
+    --hex-gap: 3px;
+    --hex-overlap: -20px;
+  }
+}
+
+.honeycomb {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 20px 0; max-width: 100vw; overflow: hidden;
+}
+.honeycomb-row { display: flex; justify-content: center; }
+.honeycomb-row + .honeycomb-row { margin-top: var(--hex-overlap); }
+
+.gallery-item {
+  width: var(--hex-w); height: var(--hex-h);
+  margin: 0 var(--hex-gap);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: rgba(255,255,255,0.06); /* borda sutil original */
+  padding: 2px; /* espessura da borda */
+  transition: transform 0.4s var(--ease), background 0.4s;
+  cursor: pointer;
+  position: relative;
+}
+.gallery-item:hover {
+  background: var(--gold-bright);
+  transform: scale(1.08);
+  z-index: 10;
+}
+.gallery-item-inner {
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: #111;
+}
+.gallery-item-inner img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(100%) brightness(0.7);
+  transition: filter 0.5s, transform 0.5s;
+}
+.gallery-item:hover .gallery-item-inner img {
+  filter: grayscale(0%) brightness(1);
+  transform: scale(1.1);
+}
+
+/* ============ CUIDADOS PÓS-TATUAGEM ============ */
+#cuidados { background: transparent; padding: 80px 0; }
+#cuidados .section-head { text-align: center; margin-bottom: 20px; }
+.cuidados-intro {
+  text-align: center; max-width: 620px; margin: 0 auto 60px;
+  color: var(--bone-dim); font-size: 17px;
+}
+.cuidados-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px 30px;
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+}
+.cuidado-item {
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+}
+.cuidado-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-ui); font-size: 18px; font-weight: bold;
+  color: var(--gold-bright);
+  margin-bottom: 20px;
+  position: relative;
+  background: radial-gradient(circle, rgba(204,0,0,0.08) 0%, transparent 70%);
+}
+.cuidado-num::before {
+  content: '';
+  position: absolute; inset: -3px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--gold-bright);
+  animation: icon-spin 12s linear infinite;
+}
+.cuidado-num::after {
+  content: '';
+  position: absolute; inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(204,0,0,0.15);
+  animation: icon-pulse 2.5s ease-in-out infinite;
+}
+.cuidado-item:hover .cuidado-num::before {
+  border-color: #ff2222;
+  animation-duration: 3s;
+}
+.cuidado-item:hover .cuidado-num::after {
+  border-color: rgba(255,0,0,0.35);
+}
+.cuidado-num svg {
+  width: 24px; height: 24px;
+  stroke: var(--gold-bright);
+  fill: none;
+  stroke-width: 1.5;
+  transition: transform 0.4s, stroke 0.3s;
+}
+.cuidado-item:hover .cuidado-num svg {
+  transform: scale(1.15);
+  stroke: #ff2222;
+}
+
+@keyframes icon-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes icon-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
+/* Animated process step icons */
+.process-step svg {
+  width: 40px; height: 40px;
+  stroke: var(--gold-bright);
+  margin-bottom: 15px;
+  transition: transform 0.4s, filter 0.4s;
+  filter: drop-shadow(0 0 4px rgba(204,0,0,0.3));
+}
+.process-step:hover svg {
+  transform: scale(1.2) translateY(-4px);
+  filter: drop-shadow(0 0 12px rgba(204,0,0,0.6));
+}
+.process-step {
+  display: flex; flex-direction: column; align-items: center;
+  transition: transform 0.3s;
+}
+.process-step:hover {
+  transform: translateY(-3px);
+}
+
+/* Animated contact mini icons */
+.contact-mini svg {
+  width: 18px; height: 18px;
+  stroke: var(--gold-bright);
+  transition: transform 0.3s, filter 0.3s;
+}
+.contact-mini a:hover svg {
+  transform: scale(1.25) rotate(-8deg);
+  filter: drop-shadow(0 0 8px rgba(204,0,0,0.5));
+}
+
+.cuidado-title {
+  font-family: var(--font-eyebrow); font-size: 18px; letter-spacing: 0.05em;
+  color: #fff; margin-bottom: 12px;
+}
+.cuidado-body p {
+  color: var(--muted); font-size: 15px; line-height: 1.6; margin: 0;
+}
+.cuidado-cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  margin-top: 15px; color: var(--gold-bright); font-family: var(--font-ui); font-size: 13px;
+  letter-spacing: 0.06em; text-decoration: none; border-bottom: 1px dashed var(--gold-bright);
+  transition: color 0.3s;
+}
+.cuidado-cta:hover { color: #ff0000; }
+.cuidado-cta svg { width: 16px; height: 16px; stroke: currentColor; }
+
+@media(max-width: 880px) { .cuidados-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width: 600px) { .cuidados-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+/* ============ DEPOIMENTOS ============ */
+#depoimentos{background:transparent;}
+.testi-grid {
+  display: flex; flex-wrap: wrap; gap: 20px;
+  justify-content: center; max-width: 1200px; margin: 40px auto 0;
+}
+.testi-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px; padding: 24px; text-align: left;
+  width: calc(33.333% - 20px); min-width: 280px; flex-grow: 1;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.testi-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold-bright);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+.testi-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+}
+.testi-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.testi-meta { display: flex; flex-direction: column; flex-grow: 1; }
+.testi-meta strong { font-family: var(--font-ui); font-size: 15px; color: #fff; }
+.testi-meta span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.ig-icon { width: 20px; stroke: var(--muted); }
+.testi-text {
+  font-size: 15px; line-height: 1.6; color: var(--bone-dim);
+  font-style: italic; margin: 0;
+}
+
+/* ============ AGENDAMENTO ============ */
+#agendar { background: transparent; padding: 100px 0; text-align: center; position: relative; }
+.agendar-inner { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 50px; padding: 0 20px; }
+.agendar-side { max-width: 600px; }
+.agendar-side h2 { font-size: clamp(32px, 4vw, 42px); font-family: var(--font-blackletter); margin-bottom: 20px; }
+.agendar-side p { color: var(--bone-dim); font-size: 18px; line-height: 1.6; margin-bottom: 30px; }
+.contact-mini { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 24px; margin-top: 20px; }
+.contact-mini a { display: flex; align-items: center; gap: 8px; font-family: var(--font-ui); font-size: 14px; color: var(--bone-dim); transition: color 0.3s; }
+.contact-mini a:hover { color: var(--gold-bright); }
+.contact-mini svg { width: 18px; height: 18px; stroke: var(--gold-bright); }
+
+/* ============ FORM (UIVERSE) ============ */
+.form-container {
+  width: 100%;
+  max-width: 500px;
+  background: linear-gradient(#16161c, #16161c) padding-box,
+              linear-gradient(145deg, transparent 35%, var(--gold-bright), var(--blood)) border-box;
+  border: 2px solid transparent;
+  padding: 32px 24px;
+  font-size: 14px;
+  font-family: inherit;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background-size: 200% 100%;
+  animation: gradient 5s ease infinite;
+  margin: 0 auto;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.form-container button:active { scale: 0.95; }
+.form-container .form { display: flex; flex-direction: column; gap: 20px; }
+.form-container .form-group { display: flex; flex-direction: column; gap: 2px; }
+.form-container .form-group label { display: block; margin-bottom: 5px; color: #909090; font-weight: 600; font-size: 12px; text-transform:uppercase; letter-spacing:0.05em;}
+.form-container .form-group input { width: 100%; padding: 12px 16px; border-radius: 8px; color: #fff; font-family: inherit; background-color: transparent; border: 1px solid #414141; transition: border-color 0.3s, box-shadow 0.3s;}
+.form-container .form-group textarea { width: 100%; padding: 12px 16px; border-radius: 8px; resize: none; color: #fff; height: 96px; border: 1px solid #414141; background-color: transparent; font-family: inherit; transition: border-color 0.3s, box-shadow 0.3s;}
+.form-container .form-group input::placeholder { opacity: 0.5; }
+.form-container .form-group input:focus { outline: none; border-color: var(--gold-bright); box-shadow: 0 0 10px rgba(255,0,0,0.15); }
+.form-container .form-group textarea:focus { outline: none; border-color: var(--gold-bright); box-shadow: 0 0 10px rgba(255,0,0,0.15); }
+.form-container .form-submit-btn { display: flex; align-items: flex-start; justify-content: center; align-self: flex-start; font-family: inherit; color: #f1f1f1; font-weight: 600; width: auto; background: #313131; border: 1px solid #414141; padding: 12px 24px; font-size: inherit; gap: 8px; margin-top: 8px; cursor: pointer; border-radius: 6px; transition:all 0.3s;}
+.form-container .form-submit-btn:hover { background-color: var(--gold-bright); border-color: var(--gold-bright); color:#fff; box-shadow: 0 0 15px rgba(255,0,0,0.4); }
+
+.err-msg{color:var(--gold-bright);font-size:13px;margin-top:6px;display:none;font-family:inherit;font-weight:bold;}
+.err-msg.show{display:block;}
+.form-success{ display:none;text-align:center;padding:20px 10px 0;font-family:inherit;font-size:16px;font-weight:bold;color:var(--gold-bright);letter-spacing:.05em;}
+.form-success.show{display:block;}
+@media(max-width:880px){.agendar-inner{grid-template-columns:1fr;}}
+
+
+/* ============ FOOTER ============ */
+footer{background:transparent;border-top:none;padding:0;text-align:center;position:relative;overflow:visible;}
+.footer-photo{display:none;}
+.footer-photo-fade{display:none;}
+.footer-inner{
+  position:relative;z-index:2;
+  max-width:680px;margin:0 auto;padding:60px 24px 32px;
+}
+.footer-divider{
+  width:60px;height:1px;margin:0 auto 40px;
+  background:var(--gold-bright);opacity:.5;
+}
+footer .logo{font-size:32px;display:inline-block;margin-bottom:6px;color:#fff;}
+footer .logo span{color:var(--gold-bright);}
+.footer-tagline{
+  font-family:var(--font-script);color:var(--muted);font-size:15px;
+  letter-spacing:.04em;margin-bottom:32px;
+}
+/* Social icons */
+.footer-socials{
+  display:flex;justify-content:center;align-items:center;gap:16px;margin-bottom:32px;
+}
+.footer-social-link{
+  width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);text-decoration:none;
+  transition:all .35s var(--ease);
+}
+.footer-social-link svg{width:18px;height:18px;fill:currentColor;}
+.footer-social-link:hover{
+  color:#fff;border-color:var(--gold-bright);
+  box-shadow:0 0 14px rgba(204,0,0,.35);
+  transform:translateY(-3px);
+}
+.footer-bottom{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:6px 20px;
+  font-family:var(--font-ui);font-size:11px;color:var(--muted);
+  letter-spacing:.05em;opacity:.6;
+}
+.footer-meta{font-family:var(--font-ui);font-size:12px;color:var(--muted);letter-spacing:.06em;}
+.back-top{
+  position:fixed;right:26px;bottom:26px;z-index:400;width:48px;height:48px;border-radius:50%;
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  background:rgba(11,9,8,.7);backdrop-filter:blur(6px);opacity:0;pointer-events:none;
+  transition:opacity .4s var(--ease), border-color .3s, transform .3s;
+}
+.back-top.show{opacity:1;pointer-events:auto;}
+.back-top:hover{border-color:var(--gold);transform:translateY(-4px);}
+.back-top svg{width:16px;stroke:var(--gold);}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
+  /* Exceção: o loader SEMPRE deve animar */
+  #load div {
+    animation-duration: 2s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;}
+@media(max-width:600px){
+  section{padding:100px 0;}
+  .container{padding:0 20px;}
+}
+</style>
+</head>
+<body>
+<!-- PARTICLE BACKGROUND -->
+<canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -10; pointer-events: none;"></canvas>
+
+<div id="progress"></div>
+
+
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <filter id="handDrawnNoise"><feTurbulence type="fractalNoise" baseFrequency="0.1" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="handDrawnNoise2"><feTurbulence type="fractalNoise" baseFrequency="0.12" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="B"/></filter>
+    <filter id="handDrawnNoiset"><feTurbulence type="fractalNoise" baseFrequency="0.15" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="B"/></filter>
+    <filter id="handDrawnNoiset2"><feTurbulence type="fractalNoise" baseFrequency="0.13" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    
+    <!-- Realistic Torn Paper Edge Filter -->
+    <filter id="realisticTear" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04 0.4" numOctaves="3" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+
+    <filter id="pencil-texture">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0" in="noise" result="coloredNoise"/>
+      <feComposite operator="in" in="coloredNoise" in2="SourceGraphic" result="texture"/>
+      <feBlend mode="multiply" in="texture" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- LOADER -->
+<div id="loader">
+  <div id="load">
+    <div>E</div>
+    <div>N</div>
+    <div>E</div>
+    <div>L</div>
+    <div>R</div>
+    <div>A</div>
+    <div>F</div>
+  </div>
+</div>
+
+<!-- SITE WRAP -->
+<div id="site-wrap">
+<!-- Uiverse SVG Filters -->
+<svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="handDrawnNoise"><feTurbulence type="fractalNoise" baseFrequency="0.1" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="handDrawnNoise2"><feTurbulence type="fractalNoise" baseFrequency="0.15" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="handDrawnNoiset"><feTurbulence type="fractalNoise" baseFrequency="0.1" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="handDrawnNoiset2"><feTurbulence type="fractalNoise" baseFrequency="0.15" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="pencil-texture"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<header id="site-header">
+  <a href="#hero" class="logo">Far<span>lene</span></a>
+  <nav id="site-nav">
+    <ul>
+      <li><a href="#sobre" class="nav-link">Sobre</a></li>
+      <li><a href="#portfolio" class="nav-link">Portfólio</a></li>
+      <li><a href="#cuidados" class="nav-link">Cuidados</a></li>
+      <li><a href="#faq" class="nav-link">Dúvidas</a></li>
+      <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
+      <li><a href="#agendar" class="nav-link">Agendar</a></li>
+    </ul>
+  </nav>
+  <a href="#agendar" class="button nav-button">
+    <span>Agende sua Tattoo</span>
+  </a>
+  <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+
+<!-- HERO -->
+<section id="hero" class="split-section">
+  <!-- Foto Esquerda -->
+  <div class="photo-frame left">
+    <div class="photo-glow" style="background-image: url('sem_fundo/IMG_5443.png');"></div>
+    <div class="split-photo-left" style="background-image: url('sem_fundo/IMG_5443.png'); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); mask-image: linear-gradient(to bottom, black 60%, transparent 100%);"></div>
+  </div>
+  
+  <!-- Papel Direita com conteúdo -->
+  <div class="split-content-right">
+    <div class="bg-parallax" style="opacity: 0.5;">
+      <img src="fotos_fundo/IMG_0276.jpg_202608181052.jpeg" class="bg-tattoo" style="inset: 2.95% auto auto 13.36%; width: clamp(200px, 22vw, 320px); transform: rotate(-6deg); translate: 8.75523px 8.13348px;" alt="" aria-hidden="true">
+      
+      <div class="bg-tattoo corpse-bride-container" style="inset: 31.56% auto auto 66.47%; width: clamp(220px, 25vw, 360px); transform: rotate(4deg); translate: -8.75523px -8.13348px;">
+        <img src="fotos_fundo/IMG_4682.jpg_202608181052.jpeg" alt="" aria-hidden="true">
+      </div>
+      
+      <div class="pupils-wrapper" style="inset: 31.56% auto auto 66.47%; width: clamp(220px, 25vw, 360px); transform: rotate(4deg); translate: -8.75523px -8.13348px;">
+        <div class="pupil left-pupil"></div>
+        <div class="pupil right-pupil"></div>
+      </div>
+
+      <img src="fotos_fundo/IMG_6793.jpg_202608181052.jpeg" class="bg-tattoo" style="inset: 9.77% auto auto 81.69%; width: clamp(160px, 18vw, 260px); transform: rotate(12deg); opacity: 0.08; translate: 8.75523px 8.13348px;" alt="" aria-hidden="true">
+      <img src="fotos_fundo/IMG_6902_jpg.jpg_202608181052.jpeg" class="bg-tattoo" style="inset: 53.73% auto auto 3.44%; width: clamp(180px, 20vw, 280px); transform: rotate(-8deg); opacity: 0.1; translate: -8.75523px -8.13348px;" alt="" aria-hidden="true">
+      <img src="fotos_fundo/IMG_0276.jpg_202608181052.jpeg" class="bg-tattoo" style="inset: 76% auto auto 74%; width: clamp(150px, 17vw, 240px); transform: rotate(9deg) scaleX(-1); opacity: 0.1;" alt="" aria-hidden="true">
+    </div>
+    <div class="hero-inner" style="z-index: 20;">
+      <div class="hero-eyebrow reveal in"></div>
+      <h1 class="hero-title reveal in" style="line-height: 0.8; margin-bottom: 20px;">farlene<br>tattoo</h1>
+      <p class="hero-tagline reveal in">tatuando peles, escutando pessoas</p>
+      <p class="hero-sub reveal in">Todo desenho tem uma história antes de virar tatuagem. Aqui sua ideia é ouvida, desenhada e eternizada com cuidado e intenção.</p>
+      <div class="hero-loc reveal in">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8"><path d="M12 22s7-7.2 7-12a7 7 0 10-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.4"/></svg>
+        Cláudio, Minas Gerais
+      </div>
+      <a href="#agendar" class="button reveal in">
+        <span>Agende sua Tattoo</span>
+      </a>
+    </div>
+    <div class="scroll-cue"><span>role</span><div class="line"></div></div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="sobre-inner">
+    <span class="eyebrow reveal in">Quem faz</span>
+    <h2 class="reveal in" style="font-family: var(--font-blackletter); font-size: clamp(40px, 5vw, 56px); margin-bottom: 20px; line-height: 1.1;">Uma tatuadora que escuta antes de desenhar</h2>
+    
+    <div class="sobre-portrait reveal in">
+      <div class="sobre-portrait-img">
+        <img src="sem_fundo/farlene.png" alt="Farlene Tattoo" loading="lazy">
+      </div>
+    </div>
+    
+    <div class="sobre-text">
+      <p class="reveal in">Farlene trabalha em Cláudio, Minas Gerais, transformando referências, memórias e ideias soltas em traços definitivos. Mais do que apenas aplicar tinta na pele, o foco é entender a sua história.</p>
+      <p class="reveal in">Antes de qualquer desenho, existe uma conversa — entender o motivo, o momento e o lugar do corpo onde a arte vai morar.</p>
+    </div>
+    
+    <!-- Passos do Processo -->
+    <div class="sobre-process reveal in">
+      <div class="process-step">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <h4>1. Conversa</h4>
+        <p>Tudo começa com um bate-papo pelo WhatsApp para entender sua ideia, tamanho, local e referências.</p>
+      </div>
+      <div class="process-step">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+        <h4>2. Criação</h4>
+        <p>Desenvolvimento de uma arte exclusiva e 100% autoral, adaptada para o formato do seu corpo.</p>
+      </div>
+      <div class="process-step">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <h4>3. Sessão</h4>
+        <p>Um ambiente tranquilo, higienizado e focado, com pausas necessárias, para eternizar a arte na sua pele.</p>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-head reveal in">
+    <span class="eyebrow">Trabalhos</span>
+    <h2 style="font-size: clamp(32px, 4vw, 42px);">Portfólio</h2>
+  </div>
+
+  <div class="honeycomb reveal in">
+    <div class="honeycomb-row">
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_1330.jpg" alt="Tattoo" loading="lazy"></div></div>
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_1890.jpg" alt="Tattoo" loading="lazy"></div></div>
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_2387.jpg" alt="Tattoo" loading="lazy"></div></div>
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_4560.jpg" alt="Tattoo" loading="lazy"></div></div>
+    </div>
+    <div class="honeycomb-row">
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_4681.jpg" alt="Tattoo" loading="lazy"></div></div>
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_4968.jpg" alt="Tattoo" loading="lazy"></div></div>
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_5443.jpg" alt="Tattoo" loading="lazy"></div></div>
+    </div>
+    <div class="honeycomb-row">
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_6005.jpg" alt="Tattoo" loading="lazy"></div></div>
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_6716.jpg" alt="Tattoo" loading="lazy"></div></div>
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_7114.jpg" alt="Tattoo" loading="lazy"></div></div>
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_7699.jpg" alt="Tattoo" loading="lazy"></div></div>
+    </div>
+    <div class="honeycomb-row">
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_9581.jpg" alt="Tattoo" loading="lazy"></div></div>
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_9740.jpg" alt="Tattoo" loading="lazy"></div></div>
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_9792.jpg" alt="Tattoo" loading="lazy"></div></div>
+    </div>
+    <div class="honeycomb-row">
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_4560.jpg" alt="Tattoo" loading="lazy"></div></div>
+      <div class="gallery-item"><div class="gallery-item-inner"><img src="Fotos/IMG_4681.jpg" alt="Tattoo" loading="lazy"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CUIDADOS PÓS-TATUAGEM -->
+<section id="cuidados">
+  <div class="section-head reveal in">
+    <span class="eyebrow">Depois da sessão</span>
+    <h2 style="font-size: clamp(32px, 4vw, 42px);">Cuidados pós-tatuagem</h2>
+  </div>
+  <p class="cuidados-intro reveal in">A cicatrização é parte do processo. Siga essa ordem nos primeiros dias para o resultado final ficar como deveria.</p>
+
+  <div class="cuidados-grid">
+    <!-- 1 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3 class="cuidado-title">Primeiras horas</h3>
+      <div class="cuidado-body"><p>Deixe o filme/curativo protegendo a pele pelo tempo indicado pela Farlene. Evite tocar com as mãos sujas.</p></div>
+    </div>
+    <!-- 2 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+      <h3 class="cuidado-title">Limpeza</h3>
+      <div class="cuidado-body"><p>Lave delicadamente com água morna e sabão neutro, sem esfregar, 2 a 3 vezes ao dia até fechar a pele.</p></div>
+    </div>
+    <!-- 3 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <h3 class="cuidado-title">Hidratação</h3>
+      <div class="cuidado-body"><p>Aplique uma camada fina da pomada indicada. Pele ressecada demora mais para cicatrizar bem.</p></div>
+    </div>
+    <!-- 4 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
+      <h3 class="cuidado-title">Sol e água</h3>
+      <div class="cuidado-body"><p>Nada de piscina, mar, banheira ou sol direto até a pele cicatrizar completamente — geralmente de 2 a 3 semanas.</p></div>
+    </div>
+    <!-- 5 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <h3 class="cuidado-title">Coceira e descamação</h3>
+      <div class="cuidado-body"><p>É normal descamar e coçar. Nunca arranque as casquinhas: isso pode tirar pigmento e deixar falhas.</p></div>
+    </div>
+    <!-- 6 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+      <h3 class="cuidado-title">Dúvidas na cicatrização</h3>
+      <div class="cuidado-body">
+        <p>Qualquer vermelhidão fora do comum ou inchaço, chame a Farlene — melhor prevenir.</p>
+        <a href="https://wa.me/5537998349941" target="_blank" rel="noopener" class="cuidado-cta">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Chamar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERGUNTAS FREQUENTES (FAQ) -->
+<section id="faq">
+  <div class="section-head reveal in" style="text-align: center; margin-bottom: 60px;">
+    <span class="eyebrow">Tudo que você precisa saber</span>
+    <h2 style="font-size: clamp(32px, 4vw, 42px);">Perguntas frequentes</h2>
+  </div>
+
+  <div class="cuidados-grid">
+    
+    <!-- FAQ 1 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <h3 class="cuidado-title">Dói muito fazer uma tatuagem?</h3>
+      <div class="cuidado-body"><p>Varia de pessoa para pessoa e depende da região do corpo. Costelas, pés e articulações costumam doer mais; braços e panturrilhas, menos. A Farlene trabalha em ritmo confortável e faz pausas quando necessário.</p></div>
+    </div>
+
+    <!-- FAQ 2 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+      <h3 class="cuidado-title">Preciso levar referência pronta?</h3>
+      <div class="cuidado-body"><p>Não é obrigatório. Você pode trazer ideias e rascunhos, e a Farlene cria uma arte exclusiva baseada naquilo que você imaginou, adaptada ao seu corpo e estilo.</p></div>
+    </div>
+
+    <!-- FAQ 3 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <h3 class="cuidado-title">Qual a idade mínima?</h3>
+      <div class="cuidado-body"><p>Por lei, a idade mínima é 18 anos. Não realizo tatuagens em menores de idade, mesmo com autorização dos pais ou responsáveis legais.</p></div>
+    </div>
+
+    <!-- FAQ 4 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <h3 class="cuidado-title">Como funciona o orçamento?</h3>
+      <div class="cuidado-body"><p>O valor depende do tamanho, detalhes, estilo e região do corpo. Envie sua ideia e medidas pelo WhatsApp para montarmos um orçamento justo.</p></div>
+    </div>
+
+    <!-- FAQ 5 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <h3 class="cuidado-title">Posso remarcar meu horário?</h3>
+      <div class="cuidado-body"><p>Sim, imprevistos acontecem! Peço apenas que me avise com pelo menos 48h de antecedência para que eu consiga ajustar a agenda e não perder o horário.</p></div>
+    </div>
+
+    <!-- FAQ 6 -->
+    <div class="cuidado-item reveal in">
+      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3 class="cuidado-title">Biossegurança e higiene</h3>
+      <div class="cuidado-body"><p>Todo o material que entra em contato com a pele (agulhas, batoques) é descartável. Superfícies são embaladas e esterilizadas seguindo a vigilância sanitária.</p></div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos" style="padding: 100px 20px; text-align: center;">
+  <div class="section-head reveal in">
+    <span class="eyebrow">Quem já sentiu a agulha</span>
+    <h2 style="font-size: clamp(32px, 4vw, 42px);">O que dizem por aí</h2>
+  </div>
+
+  <div class="testi-grid reveal in">
+    <!-- Card 1 -->
+    <div class="testi-card">
+      <div class="testi-header">
+        <div class="testi-avatar" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+        <div class="testi-meta">
+          <strong>@bea.tattoo_</strong>
+          <span>via Instagram</span>
+        </div>
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </div>
+      <p class="testi-text">"Querida, você é um sucesso! Seu esforço, talento e carisma te fazem e continuarão fazendo de você a profissional incrível que é. Voa longe! 💖"</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="testi-card">
+      <div class="testi-header">
+        <div class="testi-avatar" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+        <div class="testi-meta">
+          <strong>@lucaspiassi12</strong>
+          <span>via Instagram</span>
+        </div>
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </div>
+      <p class="testi-text">"Nunca foi 'normal' e sempre pensou fora da caixa. Sempre criativa e não adaptava a trabalhar no 07:00 às 17:00. Sempre foi artista, criativa e de bom coração. Parabéns na carreira, tenho orgulho do que se tornou. 💖💙🥰"</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="testi-card">
+      <div class="testi-header">
+        <div class="testi-avatar" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+        <div class="testi-meta">
+          <strong>@luisricardoepriscila</strong>
+          <span>via Instagram</span>
+        </div>
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </div>
+      <p class="testi-text">"A melhor de todas! Perfeita em cada traço! 💖"</p>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="testi-card">
+      <div class="testi-header">
+        <div class="testi-avatar" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);"></div>
+        <div class="testi-meta">
+          <strong>@sarahcostacabelos</strong>
+          <span>via Instagram</span>
+        </div>
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </div>
+      <p class="testi-text">"Maravilhosa, talentosa e com uma energia incrível!"</p>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="testi-card">
+      <div class="testi-header">
+        <div class="testi-avatar" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);"></div>
+        <div class="testi-meta">
+          <strong>@daniellediasvieira</strong>
+          <span>via Instagram</span>
+        </div>
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </div>
+      <p class="testi-text">"Vc é maravilhosa em tudo que faz! 💖"</p>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDAR -->
+<section id="agendar">
+  <div class="agendar-inner">
+    
+    <div class="agendar-side reveal in">
+      <span class="eyebrow">Mande sua ideia</span>
+      <h2>Agende sua Tattoo</h2>
+      <p>Preencha o formulário com sua ideia, referências e disponibilidade. Ao enviar, sua mensagem abre direto no WhatsApp da Farlene — já formatada, pronta para seguir a conversa.</p>
+      
+      <div class="contact-mini">
+        <a href="tel:+5537998349941"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.4 2.1L8.1 9.7a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.4c.9.3 1.8.5 2.7.6a2 2 0 011.9 2.2z"/></svg>(37) 99834-9941</a>
+        <a href="https://wa.me/5537998349941" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 11.5a8.5 8.5 0 01-12.4 7.6L3 20l1-5.4A8.5 8.5 0 1121 11.5z"/></svg>WhatsApp direto</a>
+        <a href="https://www.instagram.com/farlene.tattoo/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>@farlene.tattoo</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 22s7-7.2 7-12a7 7 0 10-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.4"/></svg>Cláudio, MG</a>
+      </div>
+    </div>
+
+    <form id="tattoo-form" class="reveal reveal-delay-1 form-container" style="text-align: left;" novalidate>
+      <div class="form">
+        <div class="form-group">
+          <label for="f-nome">Nome completo *</label>
+          <input type="text" id="f-nome" name="nome" required autocomplete="name">
+          <span class="err-msg" id="err-nome">Conta pra gente seu nome completo.</span>
+        </div>
+        
+        <div class="form-group">
+          <label for="f-whats">WhatsApp *</label>
+          <input type="tel" id="f-whats" name="whatsapp" placeholder="(37) 99999-9999" required inputmode="numeric" autocomplete="tel">
+          <span class="err-msg" id="err-whats">Digite um WhatsApp válido, com DDD.</span>
+        </div>
+        
+        <div class="field-row" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+          <div class="form-group">
+            <label for="f-data">Data *</label>
+            <input type="date" id="f-data" name="data" required>
+            <span class="err-msg" id="err-data">Data inválida.</span>
+          </div>
+          <div class="form-group">
+            <label for="f-hora">Horário *</label>
+            <input type="time" id="f-hora" name="hora" required>
+            <span class="err-msg" id="err-hora">Escolha a hora.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="f-ideia">Sua ideia (opcional)</label>
+          <textarea id="f-ideia" name="ideia" placeholder="Estilo, tamanho, local..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Fotos de Referência *</label>
+          <div class="upload-box" id="upload-box" style="border: 1px dashed #414141; border-radius: 8px; padding: 16px; text-align: center; cursor: pointer; position: relative;">
+            <input type="file" id="f-fotos" name="fotos" accept="image/*" multiple required style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#909090" stroke-width="1.5" style="width:26px; height:26px; margin:0 auto 6px;"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+            <p style="color:#909090; font-size:13px;">Tocar para anexar</p>
+          </div>
+          <div class="preview-strip" id="preview-strip" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;"></div>
+          <span class="err-msg" id="err-fotos">Selecione ao menos uma foto.</span>
+        </div>
+
+        <button type="submit" class="form-submit-btn">Agendar →</button>
+        <p class="form-success" id="form-success">Abrindo WhatsApp...</p>
+      </div>
+    </form>
+    
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-divider"></div>
+    <a href="#hero" class="logo" style="margin-top:20px;">Far<span>lene</span></a>
+
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/farlene.tattoo/" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      </a>
+      <a href="https://wa.me/5537998349941" target="_blank" rel="noopener" class="footer-social-link" aria-label="WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </a>
+      <a href="tel:+5537998349941" class="footer-social-link" aria-label="Telefone">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.8.32 1.58.59 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.76.27 1.54.46 2.34.59A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+    </div>
+
+    <div class="footer-bottom">
+      <span>Farlene Tattoo</span>
+      <span>Cláudio, MG</span>
+      <span>(37) 99834-9941</span>
+      <span>© <span id="year"></span></span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" id="back-top" aria-label="Voltar ao topo">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+</div><!-- /site-wrap -->
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ============ LOADER ============ */
+document.body.style.overflow = 'hidden';
+
+setTimeout(function() {
+  var loader = document.getElementById('loader');
+  var siteWrap = document.getElementById('site-wrap');
+  if (loader) {
+    loader.style.opacity = '0';
+    loader.style.pointerEvents = 'none';
+  }
+  if (siteWrap) siteWrap.classList.add('revealed');
+  document.body.style.overflow = 'auto';
+  setTimeout(function() {
+    if (loader) loader.style.display = 'none';
+  }, 1200);
+}, 5000);
+
+// Fallback
+setTimeout(()=>{
+  const sw = document.getElementById('site-wrap');
+  if(sw && !sw.classList.contains('revealed')){
+    sw.classList.add('revealed'); sw.style.clipPath = '';
+  }
+  const ld = document.getElementById('loader');
+  if(ld) ld.style.display = 'none';
+  document.body.style.overflow = 'auto';
+}, 8000);
+
+/* Custom cursor removed */
+
+/* ============ SCROLL PROGRESS + HEADER ============ */
+const progress = document.getElementById('progress');
+const header = document.getElementById('site-header');
+const backTop = document.getElementById('back-top');
+window.addEventListener('scroll', ()=>{
+  const h = document.documentElement;
+  const scrolled = (h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+  progress.style.width = scrolled+'%';
+  header.classList.toggle('scrolled', h.scrollTop>40);
+  backTop.classList.toggle('show', h.scrollTop>600);
+});
+backTop.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ============ MOBILE NAV ============ */
+const burger=document.getElementById('burger');
+const navEl=document.getElementById('site-nav');
+burger.addEventListener('click', ()=>{
+  const open=navEl.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+});
+document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click', ()=>navEl.classList.remove('open')));
+
+/* ============ SCROLL REVEAL ============ */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); } });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ============ HERO PARALLAX ============ */
+const parallaxEls = document.querySelectorAll('.bg-parallax [data-speed]');
+window.addEventListener('scroll', ()=>{
+  const y = window.scrollY;
+  parallaxEls.forEach(el=>{
+    const speed = parseFloat(el.dataset.speed);
+    el.style.setProperty('transform', `translateY(${y*speed}px)`);
+  });
+});
+const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+if(!isTouch){
+  const heroImages = document.querySelectorAll('#hero .bg-tattoo');
+  if(heroImages.length > 0) {
+    document.getElementById('hero').addEventListener('mousemove', e=>{
+      const {innerWidth:w, innerHeight:h} = window;
+      const dx=(e.clientX-w/2)/w, dy=(e.clientY-h/2)/h;
+      heroImages.forEach((img, i) => {
+        const mult = (i % 2 === 0) ? 18 : -18;
+        img.style.translate = `${dx * mult}px ${dy * mult}px`;
+      });
+    });
+  }
+}
+
+/* ============ DEPOIMENTOS ============ */
+// Depoimentos agora são carregados de forma estática no HTML usando CSS Grid
+
+/* ============ WHATSAPP MASK ============ */
+const whatsInput=document.getElementById('f-whats');
+whatsInput.addEventListener('input', ()=>{
+  let v=whatsInput.value.replace(/\D/g,'').slice(0,11);
+  if(v.length>6) v=`(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+  else if(v.length>2) v=`(${v.slice(0,2)}) ${v.slice(2)}`;
+  else if(v.length>0) v=`(${v}`;
+  whatsInput.value=v;
+});
+
+/* ============ DATE MIN ============ */
+const dataInput=document.getElementById('f-data');
+dataInput.min = new Date().toISOString().split('T')[0];
+
+/* ============ UPLOAD PREVIEW ============ */
+const fotosInput=document.getElementById('f-fotos');
+const previewStrip=document.getElementById('preview-strip');
+const uploadBox=document.getElementById('upload-box');
+fotosInput.addEventListener('change', ()=>{
+  previewStrip.innerHTML='';
+  [...fotosInput.files].forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const img=document.createElement('img');
+      img.src=e.target.result;
+      img.alt=file.name;
+      previewStrip.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+  const box=uploadBox.querySelector('p');
+  box.textContent = fotosInput.files.length ? `${fotosInput.files.length} imagem(ns) selecionada(s)` : 'Toque para escolher uma ou mais imagens';
+});
+
+/* ============ FORM SUBMIT -> WHATSAPP ============ */
+const form=document.getElementById('tattoo-form');
+form.addEventListener('submit', e=>{
+  e.preventDefault();
+  let valid=true;
+  const nome=document.getElementById('f-nome');
+  const whats=document.getElementById('f-whats');
+  const data=document.getElementById('f-data');
+  const hora=document.getElementById('f-hora');
+  const ideia=document.getElementById('f-ideia');
+
+  const checkErr = (id, hasError) => {
+    document.getElementById(id).classList.toggle('show', hasError);
+    return hasError;
+  };
+
+  const errNome = checkErr('err-nome', nome.value.trim().length < 3);
+  const errWhats = checkErr('err-whats', whats.value.replace(/\D/g,'').length < 10);
+  const step1HasError = errNome || errWhats;
+
+  const errData = checkErr('err-data', !data.value);
+  const errHora = checkErr('err-hora', !hora.value);
+  const errFotos = checkErr('err-fotos', fotosInput.files.length === 0);
+
+  const hasAnyError = step1HasError || errData || errHora || errFotos;
+
+  if(hasAnyError){
+    if(step1HasError) document.getElementById('doodle-flip').checked = false;
+    form.querySelector('.err-msg.show')?.closest('.doodle-input-wrapper')?.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  try {
+    const dataFmt = new Date(data.value+'T00:00:00').toLocaleDateString('pt-BR');
+    const qtd = fotosInput.files.length;
+    let msg = `Olá Farlene! \uD83C\uDF39\u2728\nGostaria de agendar uma tatuagem.\n\n`;
+    msg += `*Nome:* ${nome.value.trim()}\n`;
+    msg += `*WhatsApp:* ${whats.value.trim()}\n`;
+    msg += `*Data desejada:* ${dataFmt}\n`;
+    msg += `*Horário desejado:* ${hora.value}\n`;
+    if(ideia.value.trim()) msg += `*Ideia/descrição:* ${ideia.value.trim()}\n`;
+    msg += `*Fotos de referência:* ${qtd} imagem(ns) selecionada(s) — vou enviar aqui no chat.\n\n`;
+    msg += `Aguardo seu retorno! \uD83D\uDDA4`;
+
+    const url = `https://wa.me/5537998349941?text=${encodeURIComponent(msg)}`;
+    document.getElementById('form-success').classList.add('show');
+    window.open(url, '_blank');
+  } catch(err) {
+    console.error('Erro ao processar formulário:', err);
+    alert('Ops, ocorreu um erro ao gerar a mensagem. Verifique se os campos estão corretos.');
+  }
+});
+
+// ==========================================
+// INTERACTIVE EYES (Corpse Bride)
+// ==========================================
+window.addEventListener('mousemove', (e) => {
+  const corpse = document.querySelector('.corpse-bride-container');
+  const pupilsWrapper = document.querySelector('.pupils-wrapper');
+  if(!corpse || !pupilsWrapper) return;
+  
+  // Sync parallax translate from the corpse container to the pupil wrapper
+  pupilsWrapper.style.translate = corpse.style.translate;
+
+  const rect = pupilsWrapper.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  
+  const dx = e.clientX - centerX;
+  const dy = e.clientY - centerY;
+  const distance = Math.sqrt(dx*dx + dy*dy);
+  
+  const maxMove = 5; 
+  let moveX = 0;
+  let moveY = 0;
+  
+  if (distance > 0) {
+    moveX = (dx / distance) * Math.min(distance / 60, maxMove);
+    moveY = (dy / distance) * Math.min(distance / 60, maxMove);
+  }
+  
+  const pupils = pupilsWrapper.querySelectorAll('.pupil');
+  pupils.forEach(pupil => {
+    pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  });
+});
+
+// ==========================================
+// PARTICLE NETWORK BACKGROUND
+// ==========================================
+(function() {
+  const canvas = document.getElementById('particle-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particles = [];
+  let mouse = { x: null, y: null };
+
+  function init() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    particles = [];
+    // Adjust density based on screen size (1 particle per 12000px area)
+    const particleCount = Math.floor((width * height) / 12000);
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.vx = (Math.random() - 0.5) * 1.5;
+      this.vy = (Math.random() - 0.5) * 1.5;
+      this.radius = Math.random() * 1.5 + 0.5;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < 0 || this.x > width) this.vx = -this.vx;
+      if (this.y < 0 || this.y > height) this.vy = -this.vy;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(140, 160, 200, 0.7)';
+      ctx.fill();
+    }
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, width, height);
+    
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    
+    // Draw lines between particles
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = dx * dx + dy * dy;
+        
+        if (dist < 15000) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(140, 160, 200, ${0.15 - dist/100000})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+      // Draw lines to mouse
+      if (mouse.x != null) {
+        const dx = particles[i].x - mouse.x;
+        const dy = particles[i].y - mouse.y;
+        const dist = dx * dx + dy * dy;
+        if (dist < 25000) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(140, 160, 200, ${0.25 - dist/100000})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  window.addEventListener('resize', init);
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+  
+  init();
+  animate();
+})();
+</script>
+
+</body>
+</html>
