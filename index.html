@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Farlene Tattoo</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌹%3C/text%3E%3C/svg%3E">
+<title>Farlene Tattoo — Tatuando peles, escutando pessoas</title>
 <meta name="description" content="Farlene | Tatuadora em Cláudio, MG. Fine line, blackwork, realismo e old school. Agende sua tattoo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -345,6 +344,8 @@ section{position:relative;padding:150px 0;overflow:hidden;}
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
   margin-top: 60px; padding-top: 50px; border-top: 1px solid var(--line);
 }
+.process-step { display: flex; flex-direction: column; align-items: center; }
+.process-step svg { width: 36px; stroke: var(--gold-bright); margin-bottom: 15px; }
 .process-step h4 { font-family: var(--font-eyebrow); color: #fff; font-size: 17px; margin-bottom: 10px; }
 .process-step p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.5; }
 
@@ -353,9 +354,6 @@ section{position:relative;padding:150px 0;overflow:hidden;}
   .sobre-portrait { width: 200px; height: 200px; }
 }
 
-/* ============ PORTFOLIO ============ */
-#portfolio{background:transparent;padding:80px 0;}
-#portfolio .section-head{text-align:center;margin-bottom:50px;}
 /* ============ PORTFOLIO ============ */
 #portfolio{background:transparent;padding:80px 0;}
 #portfolio .section-head{text-align:center;margin-bottom:50px;}
@@ -368,17 +366,18 @@ section{position:relative;padding:150px 0;overflow:hidden;}
 }
 @media(max-width: 880px) {
   #portfolio {
-    --hex-w: 130px;
-    --hex-h: 150px;
-    --hex-overlap: -34px;
+    --hex-w: 150px;
+    --hex-h: 173px;
+    --hex-gap: 5px;
+    --hex-overlap: -40px;
   }
 }
 @media(max-width: 520px) {
   #portfolio {
-    --hex-w: 80px;
-    --hex-h: 92px;
-    --hex-gap: 3px;
-    --hex-overlap: -20px;
+    --hex-w: 110px;
+    --hex-h: 127px;
+    --hex-gap: 4px;
+    --hex-overlap: -29px;
   }
 }
 
@@ -386,15 +385,15 @@ section{position:relative;padding:150px 0;overflow:hidden;}
   display: flex; flex-direction: column; align-items: center;
   padding: 20px 0; max-width: 100vw; overflow: hidden;
 }
-.honeycomb-row { display: flex; justify-content: center; }
+.honeycomb-row { display: flex; justify-content: center; flex-wrap: wrap; }
 .honeycomb-row + .honeycomb-row { margin-top: var(--hex-overlap); }
 
 .gallery-item {
   width: var(--hex-w); height: var(--hex-h);
   margin: 0 var(--hex-gap);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background: rgba(255,255,255,0.06); /* borda sutil original */
-  padding: 2px; /* espessura da borda */
+  background: rgba(255,255,255,0.06);
+  padding: 2px;
   transition: transform 0.4s var(--ease), background 0.4s;
   cursor: pointer;
   position: relative;
@@ -418,6 +417,17 @@ section{position:relative;padding:150px 0;overflow:hidden;}
   filter: grayscale(0%) brightness(1);
   transform: scale(1.1);
 }
+/* Touch devices: show color by default since there's no hover */
+@media(hover: none) {
+  .gallery-item-inner img {
+    filter: grayscale(0%) brightness(0.92);
+  }
+  .gallery-item:active {
+    background: var(--gold-bright);
+    transform: scale(1.05);
+    z-index: 10;
+  }
+}
 
 /* ============ CUIDADOS PÓS-TATUAGEM ============ */
 #cuidados { background: transparent; padding: 80px 0; }
@@ -435,88 +445,14 @@ section{position:relative;padding:150px 0;overflow:hidden;}
   display: flex; flex-direction: column; align-items: center;
 }
 .cuidado-num {
-  width: 56px; height: 56px;
+  width: 50px; height: 50px;
   border-radius: 50%;
-  border: none;
+  border: 1px dashed var(--gold-bright);
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-ui); font-size: 18px; font-weight: bold;
   color: var(--gold-bright);
   margin-bottom: 20px;
-  position: relative;
-  background: radial-gradient(circle, rgba(204,0,0,0.08) 0%, transparent 70%);
 }
-.cuidado-num::before {
-  content: '';
-  position: absolute; inset: -3px;
-  border-radius: 50%;
-  border: 1.5px dashed var(--gold-bright);
-  animation: icon-spin 12s linear infinite;
-}
-.cuidado-num::after {
-  content: '';
-  position: absolute; inset: -6px;
-  border-radius: 50%;
-  border: 1px solid rgba(204,0,0,0.15);
-  animation: icon-pulse 2.5s ease-in-out infinite;
-}
-.cuidado-item:hover .cuidado-num::before {
-  border-color: #ff2222;
-  animation-duration: 3s;
-}
-.cuidado-item:hover .cuidado-num::after {
-  border-color: rgba(255,0,0,0.35);
-}
-.cuidado-num svg {
-  width: 24px; height: 24px;
-  stroke: var(--gold-bright);
-  fill: none;
-  stroke-width: 1.5;
-  transition: transform 0.4s, stroke 0.3s;
-}
-.cuidado-item:hover .cuidado-num svg {
-  transform: scale(1.15);
-  stroke: #ff2222;
-}
-
-@keyframes icon-spin {
-  to { transform: rotate(360deg); }
-}
-@keyframes icon-pulse {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.12); }
-}
-
-/* Animated process step icons */
-.process-step svg {
-  width: 40px; height: 40px;
-  stroke: var(--gold-bright);
-  margin-bottom: 15px;
-  transition: transform 0.4s, filter 0.4s;
-  filter: drop-shadow(0 0 4px rgba(204,0,0,0.3));
-}
-.process-step:hover svg {
-  transform: scale(1.2) translateY(-4px);
-  filter: drop-shadow(0 0 12px rgba(204,0,0,0.6));
-}
-.process-step {
-  display: flex; flex-direction: column; align-items: center;
-  transition: transform 0.3s;
-}
-.process-step:hover {
-  transform: translateY(-3px);
-}
-
-/* Animated contact mini icons */
-.contact-mini svg {
-  width: 18px; height: 18px;
-  stroke: var(--gold-bright);
-  transition: transform 0.3s, filter 0.3s;
-}
-.contact-mini a:hover svg {
-  transform: scale(1.25) rotate(-8deg);
-  filter: drop-shadow(0 0 8px rgba(204,0,0,0.5));
-}
-
 .cuidado-title {
   font-family: var(--font-eyebrow); font-size: 18px; letter-spacing: 0.05em;
   color: #fff; margin-bottom: 12px;
@@ -688,9 +624,86 @@ footer .logo span{color:var(--gold-bright);}
   }
 }
 :focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;}
-@media(max-width:600px){
+
+/* ============ MOBILE FIXES ============ */
+@media(max-width:880px){
   section{padding:100px 0;}
   .container{padding:0 20px;}
+  /* Show CTA button inside open mobile nav */
+  nav.open .nav-cta{display:inline-flex !important; margin-top:10px;}
+  /* Scroll cue: hide on mobile */
+  .scroll-cue{display:none;}
+  /* Depoimentos cards narrower */
+  .testi-card{min-width:240px;}
+}
+@media(max-width:600px){
+  section{padding:80px 0;}
+  .container{padding:0 16px;}
+  /* Hero title smaller on small screens */
+  .hero-title{font-size:clamp(52px,13vw,100px) !important;}
+  .hero-sub{font-size:17px; padding:0 8px;}
+  .hero-tagline{font-size:clamp(20px,4vw,30px) !important;}
+  /* Form grid: stack date/time */
+  .field-row{grid-template-columns:1fr !important;}
+  /* Depoimentos */
+  .testi-card{width:100%; min-width:0;}
+  /* Back to top: adjust for mobile nav bars */
+  .back-top{right:16px; bottom:16px; width:42px; height:42px;}
+}
+
+/* ============ LIGHTBOX ============ */
+.lightbox-overlay{
+  position:fixed; inset:0; z-index:10000;
+  background:rgba(0,0,0,.92);
+  backdrop-filter:blur(8px);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none;
+  transition:opacity .35s var(--ease);
+}
+.lightbox-overlay.active{opacity:1; pointer-events:auto;}
+.lightbox-img{
+  max-width:90vw; max-height:85vh;
+  object-fit:contain; border-radius:4px;
+  transform:scale(.92); opacity:0;
+  transition:transform .4s var(--ease), opacity .4s var(--ease);
+  user-select:none; -webkit-user-drag:none;
+}
+.lightbox-overlay.active .lightbox-img{transform:scale(1); opacity:1;}
+.lightbox-close{
+  position:absolute; top:20px; right:20px;
+  width:44px; height:44px; border-radius:50%;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; z-index:10;
+  transition:background .3s, transform .3s;
+}
+.lightbox-close:hover{background:rgba(255,255,255,.15); transform:scale(1.1);}
+.lightbox-close svg{width:20px; height:20px; stroke:#fff; stroke-width:2;}
+.lightbox-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:48px; height:48px; border-radius:50%;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; z-index:10;
+  transition:background .3s, transform .3s;
+}
+.lightbox-nav:hover{background:rgba(255,255,255,.15); transform:translateY(-50%) scale(1.1);}
+.lightbox-nav svg{width:20px; height:20px; stroke:#fff; stroke-width:2;}
+.lightbox-prev{left:16px;}
+.lightbox-next{right:16px;}
+.lightbox-counter{
+  position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+  font-family:var(--font-ui); font-size:13px; color:rgba(255,255,255,.5);
+  letter-spacing:.1em;
+}
+@media(max-width:600px){
+  .lightbox-nav{width:40px; height:40px;}
+  .lightbox-prev{left:8px;}
+  .lightbox-next{right:8px;}
+  .lightbox-close{top:12px; right:12px; width:38px; height:38px;}
+  .lightbox-img{max-width:95vw; max-height:80vh;}
 }
 </style>
 </head>
@@ -779,8 +792,10 @@ footer .logo span{color:var(--gold-bright);}
   <!-- Papel Direita com conteúdo -->
   <div class="split-content-right">
     <div class="bg-parallax" style="opacity: 0.5;">
+      <img src="fotos_fundo/IMG_0276.jpg_202608181052.jpeg" class="bg-tattoo" style="inset: 2.95% auto auto 13.36%; width: clamp(200px, 22vw, 320px); transform: rotate(-6deg); translate: 8.75523px 8.13348px;" alt="" aria-hidden="true">
       
       <div class="bg-tattoo corpse-bride-container" style="inset: 31.56% auto auto 66.47%; width: clamp(220px, 25vw, 360px); transform: rotate(4deg); translate: -8.75523px -8.13348px;">
+        <img src="fotos_fundo/IMG_4682.jpg_202608181052.jpeg" alt="" aria-hidden="true">
       </div>
       
       <div class="pupils-wrapper" style="inset: 31.56% auto auto 66.47%; width: clamp(220px, 25vw, 360px); transform: rotate(4deg); translate: -8.75523px -8.13348px;">
@@ -788,6 +803,9 @@ footer .logo span{color:var(--gold-bright);}
         <div class="pupil right-pupil"></div>
       </div>
 
+      <img src="fotos_fundo/IMG_6793.jpg_202608181052.jpeg" class="bg-tattoo" style="inset: 9.77% auto auto 81.69%; width: clamp(160px, 18vw, 260px); transform: rotate(12deg); opacity: 0.08; translate: 8.75523px 8.13348px;" alt="" aria-hidden="true">
+      <img src="fotos_fundo/IMG_6902_jpg.jpg_202608181052.jpeg" class="bg-tattoo" style="inset: 53.73% auto auto 3.44%; width: clamp(180px, 20vw, 280px); transform: rotate(-8deg); opacity: 0.1; translate: -8.75523px -8.13348px;" alt="" aria-hidden="true">
+      <img src="fotos_fundo/IMG_0276.jpg_202608181052.jpeg" class="bg-tattoo" style="inset: 76% auto auto 74%; width: clamp(150px, 17vw, 240px); transform: rotate(9deg) scaleX(-1); opacity: 0.1;" alt="" aria-hidden="true">
     </div>
     <div class="hero-inner" style="z-index: 20;">
       <div class="hero-eyebrow reveal in"></div>
@@ -893,37 +911,37 @@ footer .logo span{color:var(--gold-bright);}
   <div class="cuidados-grid">
     <!-- 1 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="cuidado-num">1</div>
       <h3 class="cuidado-title">Primeiras horas</h3>
       <div class="cuidado-body"><p>Deixe o filme/curativo protegendo a pele pelo tempo indicado pela Farlene. Evite tocar com as mãos sujas.</p></div>
     </div>
     <!-- 2 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+      <div class="cuidado-num">2</div>
       <h3 class="cuidado-title">Limpeza</h3>
       <div class="cuidado-body"><p>Lave delicadamente com água morna e sabão neutro, sem esfregar, 2 a 3 vezes ao dia até fechar a pele.</p></div>
     </div>
     <!-- 3 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="cuidado-num">3</div>
       <h3 class="cuidado-title">Hidratação</h3>
       <div class="cuidado-body"><p>Aplique uma camada fina da pomada indicada. Pele ressecada demora mais para cicatrizar bem.</p></div>
     </div>
     <!-- 4 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
+      <div class="cuidado-num">4</div>
       <h3 class="cuidado-title">Sol e água</h3>
       <div class="cuidado-body"><p>Nada de piscina, mar, banheira ou sol direto até a pele cicatrizar completamente — geralmente de 2 a 3 semanas.</p></div>
     </div>
     <!-- 5 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div class="cuidado-num">5</div>
       <h3 class="cuidado-title">Coceira e descamação</h3>
       <div class="cuidado-body"><p>É normal descamar e coçar. Nunca arranque as casquinhas: isso pode tirar pigmento e deixar falhas.</p></div>
     </div>
     <!-- 6 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+      <div class="cuidado-num">6</div>
       <h3 class="cuidado-title">Dúvidas na cicatrização</h3>
       <div class="cuidado-body">
         <p>Qualquer vermelhidão fora do comum ou inchaço, chame a Farlene — melhor prevenir.</p>
@@ -947,42 +965,42 @@ footer .logo span{color:var(--gold-bright);}
     
     <!-- FAQ 1 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="cuidado-num">?</div>
       <h3 class="cuidado-title">Dói muito fazer uma tatuagem?</h3>
       <div class="cuidado-body"><p>Varia de pessoa para pessoa e depende da região do corpo. Costelas, pés e articulações costumam doer mais; braços e panturrilhas, menos. A Farlene trabalha em ritmo confortável e faz pausas quando necessário.</p></div>
     </div>
 
     <!-- FAQ 2 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+      <div class="cuidado-num">?</div>
       <h3 class="cuidado-title">Preciso levar referência pronta?</h3>
       <div class="cuidado-body"><p>Não é obrigatório. Você pode trazer ideias e rascunhos, e a Farlene cria uma arte exclusiva baseada naquilo que você imaginou, adaptada ao seu corpo e estilo.</p></div>
     </div>
 
     <!-- FAQ 3 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="cuidado-num">?</div>
       <h3 class="cuidado-title">Qual a idade mínima?</h3>
       <div class="cuidado-body"><p>Por lei, a idade mínima é 18 anos. Não realizo tatuagens em menores de idade, mesmo com autorização dos pais ou responsáveis legais.</p></div>
     </div>
 
     <!-- FAQ 4 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="cuidado-num">?</div>
       <h3 class="cuidado-title">Como funciona o orçamento?</h3>
       <div class="cuidado-body"><p>O valor depende do tamanho, detalhes, estilo e região do corpo. Envie sua ideia e medidas pelo WhatsApp para montarmos um orçamento justo.</p></div>
     </div>
 
     <!-- FAQ 5 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div class="cuidado-num">?</div>
       <h3 class="cuidado-title">Posso remarcar meu horário?</h3>
       <div class="cuidado-body"><p>Sim, imprevistos acontecem! Peço apenas que me avise com pelo menos 48h de antecedência para que eu consiga ajustar a agenda e não perder o horário.</p></div>
     </div>
 
     <!-- FAQ 6 -->
     <div class="cuidado-item reveal in">
-      <div class="cuidado-num"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="cuidado-num">?</div>
       <h3 class="cuidado-title">Biossegurança e higiene</h3>
       <div class="cuidado-body"><p>Todo o material que entra em contato com a pele (agulhas, batoques) é descartável. Superfícies são embaladas e esterilizadas seguindo a vigilância sanitária.</p></div>
     </div>
@@ -1166,6 +1184,21 @@ footer .logo span{color:var(--gold-bright);}
 </button>
 
 </div><!-- /site-wrap -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Fechar">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Anterior">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="Tattoo ampliada">
+  <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Próxima">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
@@ -1468,6 +1501,89 @@ window.addEventListener('mousemove', (e) => {
   
   init();
   animate();
+})();
+
+// ==========================================
+// LIGHTBOX
+// ==========================================
+(function() {
+  const overlay = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbPrev = document.getElementById('lightbox-prev');
+  const lbNext = document.getElementById('lightbox-next');
+  const lbCounter = document.getElementById('lightbox-counter');
+  if(!overlay) return;
+
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const srcs = [];
+  galleryItems.forEach(item => {
+    const img = item.querySelector('img');
+    if(img) srcs.push(img.src);
+  });
+
+  let current = 0;
+
+  function open(index) {
+    current = index;
+    update();
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function update() {
+    lbImg.src = srcs[current];
+    lbCounter.textContent = (current + 1) + ' / ' + srcs.length;
+  }
+
+  function next() {
+    current = (current + 1) % srcs.length;
+    update();
+  }
+
+  function prev() {
+    current = (current - 1 + srcs.length) % srcs.length;
+    update();
+  }
+
+  galleryItems.forEach((item, i) => {
+    item.addEventListener('click', () => open(i));
+  });
+
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
+
+  overlay.addEventListener('click', (e) => {
+    if(e.target === overlay) close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if(!overlay.classList.contains('active')) return;
+    if(e.key === 'Escape') close();
+    if(e.key === 'ArrowRight') next();
+    if(e.key === 'ArrowLeft') prev();
+  });
+
+  // Touch swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+  overlay.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, {passive: true});
+  overlay.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if(Math.abs(diff) > 50) {
+      if(diff > 0) next();
+      else prev();
+    }
+  }, {passive: true});
 })();
 </script>
 
