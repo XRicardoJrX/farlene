@@ -161,16 +161,16 @@ nav a:hover::after{width:100%;}
 .burger span{width:26px;height:1.5px;background:var(--bone);}
 header:not(.scrolled) .burger span { background: #fff; mix-blend-mode: difference; }
 @media(max-width:880px){
-  nav{position:fixed;inset:0;background:var(--bg-black);flex-direction:column;align-items:center;justify-content:center;gap:30px;transform:translateY(-100%);transition:transform .5s var(--ease);z-index:550;visibility:hidden;}
-  nav.open{transform:translateY(0);visibility:visible;}
+  nav{position:fixed;inset:0;background:var(--bg-black);flex-direction:column;align-items:center;justify-content:center;gap:30px;z-index:550;
+      clip-path:inset(0 0 100% 0);opacity:0;pointer-events:none;
+      transition:clip-path .5s var(--ease), opacity .4s var(--ease);}
+  nav.open{clip-path:inset(0);opacity:1;pointer-events:auto;}
   nav ul{flex-direction:column;text-align:center;gap:26px;}
   nav ul a{font-size:16px;}
   .nav-cta{display:none;}
   .burger{display:flex;}
-  /* Disable mix-blend-mode on mobile — causes ghost text through translated nav */
-  header:not(.scrolled) nav a{mix-blend-mode:normal;}
-  header:not(.scrolled) .logo{mix-blend-mode:normal;}
-  header:not(.scrolled) .burger span{mix-blend-mode:normal;}
+  /* Kill ALL mix-blend-mode on mobile unconditionally — causes ghost text */
+  nav a, .logo, .burger span{mix-blend-mode:normal !important;}
 }
 
 /* ============ SECTIONS BASE ============ */
