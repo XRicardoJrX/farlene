@@ -161,12 +161,16 @@ nav a:hover::after{width:100%;}
 .burger span{width:26px;height:1.5px;background:var(--bone);}
 header:not(.scrolled) .burger span { background: #fff; mix-blend-mode: difference; }
 @media(max-width:880px){
-  nav{position:fixed;inset:0;background:var(--bg-black);flex-direction:column;align-items:center;justify-content:center;gap:30px;transform:translateY(-100%);transition:transform .5s var(--ease);}
-  nav.open{transform:translateY(0);}
+  nav{position:fixed;inset:0;background:var(--bg-black);flex-direction:column;align-items:center;justify-content:center;gap:30px;transform:translateY(-100%);transition:transform .5s var(--ease);z-index:550;visibility:hidden;}
+  nav.open{transform:translateY(0);visibility:visible;}
   nav ul{flex-direction:column;text-align:center;gap:26px;}
   nav ul a{font-size:16px;}
   .nav-cta{display:none;}
   .burger{display:flex;}
+  /* Disable mix-blend-mode on mobile — causes ghost text through translated nav */
+  header:not(.scrolled) nav a{mix-blend-mode:normal;}
+  header:not(.scrolled) .logo{mix-blend-mode:normal;}
+  header:not(.scrolled) .burger span{mix-blend-mode:normal;}
 }
 
 /* ============ SECTIONS BASE ============ */
@@ -366,18 +370,18 @@ section{position:relative;padding:150px 0;overflow:hidden;}
 }
 @media(max-width: 880px) {
   #portfolio {
-    --hex-w: 150px;
-    --hex-h: 173px;
-    --hex-gap: 5px;
-    --hex-overlap: -40px;
+    --hex-w: 140px;
+    --hex-h: 162px;
+    --hex-gap: 4px;
+    --hex-overlap: -37px;
   }
 }
-@media(max-width: 520px) {
+@media(max-width: 600px) {
   #portfolio {
-    --hex-w: 110px;
-    --hex-h: 127px;
-    --hex-gap: 4px;
-    --hex-overlap: -29px;
+    --hex-w: 22vw;
+    --hex-h: 25.4vw;
+    --hex-gap: 1vw;
+    --hex-overlap: -5.8vw;
   }
 }
 
@@ -385,7 +389,7 @@ section{position:relative;padding:150px 0;overflow:hidden;}
   display: flex; flex-direction: column; align-items: center;
   padding: 20px 0; max-width: 100vw; overflow: hidden;
 }
-.honeycomb-row { display: flex; justify-content: center; flex-wrap: wrap; }
+.honeycomb-row { display: flex; justify-content: center; }
 .honeycomb-row + .honeycomb-row { margin-top: var(--hex-overlap); }
 
 .gallery-item {
